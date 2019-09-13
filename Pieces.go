@@ -10,8 +10,8 @@ type Pawn struct {
 	color bool
 }
 
-func (piece Pawn) allMoves(boardPos BoardPosition) {
-
+func (piece Pawn) allMoves(boardPos BoardPosition) []Move{
+	return []Move{Move{start:Point{1,1}, end:Point{1,1}}}
 }
 
 type Knight struct {

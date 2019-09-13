@@ -16,8 +16,9 @@ type BoardPosition struct {
 
 	WhitePieces []Piece
 	BlackPieces []Piece
+	wholeBoard [8][8]Piece
 }
 
-func (boardPos BoardPosition) init(slice []int) {
+func (boardPos *BoardPosition) init(slice []int) {
 
 }
