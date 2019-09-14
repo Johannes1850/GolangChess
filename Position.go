@@ -19,7 +19,7 @@ type BoardPosition struct {
 	wholeBoard [8][8]Piece
 }
 
-func (boardPos *BoardPosition) init(slice []int) {
+func (boardPos *BoardPosition) init(slice []int, nextMove bool) {
 /**
 	// Load model
 	module, _ := torch.LoadJITModule("EvalNN.pt")
@@ -32,6 +32,7 @@ func (boardPos *BoardPosition) init(slice []int) {
 
 	fmt.Println("Dadada : ", res)
 **/
+	boardPos.nextMove = nextMove
 	for _, element := range slice {
 		pieceInt := (element-1) / 64
 		positionInt := element % 64

@@ -38,7 +38,7 @@ class Board {
                     url: 'receive',
                     type: 'post',
                     dataType: 'html',
-                    data : { board_position: this.position.dataFormat().toString()},
+                    data : {next_move: false.toString(), board_position: this.position.dataFormat().toString()},
                     success : function(data) {
                         $('#result').html(data);
                     },

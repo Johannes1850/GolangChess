@@ -10,17 +10,21 @@ import (
 	"strings"
 )
 
-func startCalc(slice []int) {
+func startCalc(slice []int, nextMove bool) {
 	var aiPlayer AiPlayer
-	aiPlayer.init(slice)
+	aiPlayer.init(slice, nextMove)
 }
 
 func receiveAjax(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
+		next_move_string := r.FormValue("next_move")
+		var next_move bool
+		if next_move_string == "false" {
+			next_move = false
+		} else { next_move = true }
 		board_position := r.FormValue("board_position")
 		cleaned := strings.Replace(board_position, ",", " ", -1)
 		strSlice := strings.Fields(cleaned)
-
 		// create new slice with boolean's
 		intSlice := []int {}
 		for i := 0; i < len(strSlice); i++ {
@@ -28,7 +32,7 @@ func receiveAjax(w http.ResponseWriter, r *http.Request) {
 				intSlice = append(intSlice, i)
 			}
 		}
-		startCalc(intSlice)
+		startCalc(intSlice, next_move)
 	}
 }
 
