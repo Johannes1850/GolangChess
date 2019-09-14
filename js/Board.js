@@ -7,6 +7,13 @@ class Board {
         this.AiPlayer = new Minimax();
         this.aiMove = false;
         this.size = size;
+        this.nextAiMove = ""
+    }
+
+    PlayAiMove(move) {
+        console.log(move);
+        MainGame.board.position.PlayMoveAlways({start: new Point(0, 1), end: new Point(0,3)});
+        MainGame.board.Draw();
     }
 
     Draw() {
@@ -15,11 +22,13 @@ class Board {
     }
 
     Update(ClickedAt = new Point(-1,-1)) {
+        /**
         if (this.aiMove && ClickedAt.x === -1) {
             this.AiPlayer.nextAiMove(this.position, pieceColor.BLACK);
             this.aiMove = false;
             return;
         }
+         **/
         if (this.pieceSelected) {
             if (this.position.PieceAtBool(ClickedAt) && this.position.PieceAt(ClickedAt).color === this.selectedPiece.color) {
                 this.selectedPiece.deSelect();
@@ -34,16 +43,8 @@ class Board {
             } else {
                 this.pieceSelected = false;
                 this.selectedPiece.deSelect();
-                $.ajax({
-                    url: 'receive',
-                    type: 'post',
-                    dataType: 'html',
-                    data : {next_move: false.toString(), board_position: this.position.dataFormat().toString()},
-                    success : function(data) {
-                        $('#result').html(data);
-                    },
-                });
                 this.aiMove = true;
+                this.pieceSelected = false;
                 this.Draw();
                 this.Update();
                 return;
@@ -57,6 +58,5 @@ class Board {
                 this.pieceSelected = true;
             }
         }
-
     }
 }

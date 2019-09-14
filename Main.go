@@ -10,9 +10,10 @@ import (
 	"strings"
 )
 
-func startCalc(slice []int, nextMove bool) {
+func startCalc(slice []int, nextMove bool) string{
 	var aiPlayer AiPlayer
 	aiPlayer.init(slice, nextMove)
+	return aiPlayer.stringMove()
 }
 
 func receiveAjax(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +33,8 @@ func receiveAjax(w http.ResponseWriter, r *http.Request) {
 				intSlice = append(intSlice, i)
 			}
 		}
-		startCalc(intSlice, next_move)
+		aiMove := startCalc(intSlice, next_move)
+		w.Write([]byte(aiMove))
 	}
 }
 

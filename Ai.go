@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "time"
 
 const MAX_DEPTH  = 4
 
@@ -15,4 +16,9 @@ func (aiPlayer *AiPlayer) init(slice []int, nextMove bool) {
 
 func (aiPlayer AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha int, beta int, color bool, prevMove Move) {
 	fmt.Println(color)
+	time.Sleep(3 * time.Second)
+}
+
+func (aiPlayer AiPlayer) stringMove() string{
+	return "1,7,1,5"
 }

@@ -5,9 +5,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ai.go" beforeDir="false" afterPath="$PROJECT_DIR$/Ai.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.go" beforeDir="false" afterPath="$PROJECT_DIR$/Main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Position.go" beforeDir="false" afterPath="$PROJECT_DIR$/Position.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go_build_ThirdChess" beforeDir="false" afterPath="$PROJECT_DIR$/go_build_ThirdChess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/Board.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Board.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Position.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Position.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +59,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build ThirdChess">
     <configuration name="go build ThirdChess" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="ThirdChess" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -68,8 +69,29 @@
       <output_directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="go build ThirdChess" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="ThirdChess" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="DIRECTORY" />
+      <filePath value="$PROJECT_DIR$/Main.go" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build test.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="ThirdChess" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/test.go" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build ThirdChess" />
+      <item itemvalue="Go Build.go build test.go" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build ThirdChess" />
+        <item itemvalue="Go Build.go build test.go" />
         <item itemvalue="Go Build.go build ThirdChess" />
       </list>
     </recent_temporary>

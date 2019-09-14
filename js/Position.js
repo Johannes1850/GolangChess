@@ -97,6 +97,13 @@ class Position {
         this.whitePieces.push(new Pawn('white', new Point(7, 6)));
     }
 
+    PlayMoveAlways(move) {
+        console.log(move);
+        let piece = this.PieceAt(move.start);
+        this.RemovePiece(this.PieceAt(move.end));
+        piece.updatePosition(move.end);
+    }
+
     PlayMove(move) {
         // console.log(move.start.x+" "+move.start.y);
         let piece = this.PieceAt(move.start);
