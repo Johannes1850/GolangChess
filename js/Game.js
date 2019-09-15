@@ -19,6 +19,7 @@ class Game {
         this.Draw();
         if (this.board.aiMove) {
             this.board.aiMove = false;
+            this.board.blockHumanMove = true;
             $.ajax({
                 url: 'receive',
                 type: 'post',

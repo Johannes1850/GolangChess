@@ -98,7 +98,6 @@ class Position {
     }
 
     PlayMoveAlways(move) {
-        console.log(move);
         let piece = this.PieceAt(move.start);
         this.RemovePiece(this.PieceAt(move.end));
         piece.updatePosition(move.end);

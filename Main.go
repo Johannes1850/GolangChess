@@ -2,7 +2,6 @@ package main
 
 import (
 	. "database/sql/driver"
-	"fmt"
 	"github.com/gorilla/mux"
 	"html/template"
 	"log"
@@ -39,7 +38,6 @@ func receiveAjax(w http.ResponseWriter, r *http.Request) {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.URL.Path)
 	t, _ := template.ParseFiles("index.html")
 	t.Execute(w, Null{})
 }

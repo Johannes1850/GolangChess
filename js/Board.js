@@ -7,12 +7,16 @@ class Board {
         this.AiPlayer = new Minimax();
         this.aiMove = false;
         this.size = size;
+        this.blockHumanMove = false;
         this.nextAiMove = ""
     }
 
     PlayAiMove(move) {
-        console.log(move);
-        MainGame.board.position.PlayMoveAlways({start: new Point(0, 1), end: new Point(0,3)});
+        let formMove = move.split(',');
+        MainGame.board.position.PlayMoveAlways({start: new Point(parseInt(formMove[0]
+                , 10), parseInt(formMove[1], 10))
+            , end: new Point(parseInt(formMove[2], 10),parseInt(formMove[3], 10))});
+        MainGame.board.blockHumanMove = false;
         MainGame.board.Draw();
     }
 
@@ -36,6 +40,7 @@ class Board {
                 this.selectedPiece.select();
                 return;
             }
+            if (this.blockHumanMove) { return; }
             if (!this.position.PlayMove({start: this.selectedPiece.position, end: ClickedAt})) {
                 this.pieceSelected = false;
                 this.selectedPiece.deSelect();
