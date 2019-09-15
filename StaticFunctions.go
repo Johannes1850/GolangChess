@@ -15,6 +15,20 @@ func eval(boardPos BoardPosition) float32{
 	return -0.3
 }
 
+func kingAtColor(boardPos BoardPosition, point Point, color bool) bool {
+	if color == true {
+		for _, element := range boardPos.WhitePieces {
+			if element.getPosition() == point { if element.getValue() == 10 {return true} }
+		}
+	}
+	if color == false {
+		for _, element := range boardPos.BlackPieces {
+			if element.getPosition() == point { if element.getValue() == 10 {return true} }
+		}
+	}
+	return false
+}
+
 // returns true, if piece exists at point
 func pieceAt(boardPos BoardPosition, point Point) bool{
 	for _, element := range boardPos.WhitePieces {
@@ -49,7 +63,20 @@ func getPiece(boardPos BoardPosition, point Point) Piece{
 
 // returns all valid moves for given position
 func allValidMoves(boardPos BoardPosition, sortingMode MoveSortingMode) []Move{
-	return []Move{Move{start:Point{1,1}, end:Point{1,1}}}
+	var retMoveList []Move
+	// All white moves
+	if boardPos.nextMove {
+		for _, element := range boardPos.WhitePieces {
+			retMoveList = append(retMoveList, element.allMoves(boardPos)...)
+		}
+	}
+	// All black moves
+	if !boardPos.nextMove {
+		for _, element := range boardPos.BlackPieces {
+			retMoveList = append(retMoveList, element.allMoves(boardPos)...)
+		}
+	}
+	return retMoveList
 }
 
 // returns a clone of boardPos
@@ -64,7 +91,7 @@ func clone(boardPos BoardPosition) BoardPosition {
 func freeWay(boardPos BoardPosition, move Move) bool {
 	// horizontal
 	if move.start.y == move.end.y && move.start.x != move.end.x {
-		horizontalDiff := int(move.start.x-move.end.x)
+		horizontalDiff := int(move.start.x)-int(move.end.x)
 		if horizontalDiff < 0 {horizontalDiff *= -1}
 		if move.start.x < move.end.x {
 			for i := 1; i < horizontalDiff; i++ {
@@ -80,7 +107,7 @@ func freeWay(boardPos BoardPosition, move Move) bool {
 
 	// vertical
 	if move.start.y != move.end.y && move.start.x == move.end.x {
-		verticalDiff := int(move.start.y-move.end.y)
+		verticalDiff := int(move.start.y)-int(move.end.y)
 		if verticalDiff < 0 {verticalDiff *= -1}
 		if move.start.y < move.end.y {
 			for i := 1; i < verticalDiff; i++ {
@@ -95,8 +122,8 @@ func freeWay(boardPos BoardPosition, move Move) bool {
 	}
 
 	//diagonal
-	var pointX int = int(move.end.x - move.start.x)
-	var pointY int = int(move.end.y - move.start.y)
+	pointX := int(move.end.x) - int(move.start.x)
+	pointY := int(move.end.y) - int(move.start.y)
 	if math.Abs(float64(pointX)) == math.Abs(float64(pointY)) {
 		var i byte
 		// topRight
@@ -119,12 +146,24 @@ func freeWay(boardPos BoardPosition, move Move) bool {
 		}
 		//bottomLeft
 		if pointX < 0 && pointY < 0 {
-			for i = 1; i < byte(math.Abs(float64(byte(pointX)))); i++ {
+			for i = 1; i < byte(math.Abs(float64(pointX))); i++ {
 				if pieceAt(boardPos, Point{move.start.x-i, move.start.y-i}) { return false }
 			}
 		}
 	}
 	return true
+}
+
+func KingBlockingKing(boardPos BoardPosition, point Point) bool{
+	if kingAtColor(boardPos, Point{point.x+1, point.y+1}, !boardPos.nextMove) {return true}
+	if kingAtColor(boardPos, Point{point.x+1, point.y}, !boardPos.nextMove) {return true}
+	if kingAtColor(boardPos, Point{point.x+1, point.y-1}, !boardPos.nextMove) {return true}
+	if kingAtColor(boardPos, Point{point.x-1, point.y+1}, !boardPos.nextMove) {return true}
+	if kingAtColor(boardPos, Point{point.x-1, point.y}, !boardPos.nextMove) {return true}
+	if kingAtColor(boardPos, Point{point.x-1, point.y-1}, !boardPos.nextMove) {return true}
+	if kingAtColor(boardPos, Point{point.x, point.y+1}, !boardPos.nextMove) {return true}
+	if kingAtColor(boardPos, Point{point.x, point.y-1}, !boardPos.nextMove) {return true}
+	return false
 }
 
 // returns board coordinate from 1-768 coordinates
