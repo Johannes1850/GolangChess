@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Point struct {
 	x byte
 	y byte
@@ -14,9 +16,33 @@ type BoardPosition struct {
 	// white is true, black is false
 	nextMove bool
 
+	// move that lead to position
+	prevMove Move
+
 	WhitePieces []Piece
 	BlackPieces []Piece
 	wholeBoard [8][8]Piece
+}
+
+func (boardPos *BoardPosition) movePiece(move Move) {
+	if boardPos.nextMove {
+		for _, piece := range boardPos.WhitePieces {
+			if piece.getPosition() == move.start {
+				piece.setPosition(move.end)
+				fmt.Println("hier", piece.getPosition(), move.end)
+				return
+			}
+		}
+	}
+	if !boardPos.nextMove {
+		for _, piece := range boardPos.BlackPieces {
+			if piece.getPosition() == move.start {
+				piece.setPosition(move.end)
+				fmt.Println("hier", piece.getPosition(), move.end)
+				return
+			}
+		}
+	}
 }
 
 func (boardPos *BoardPosition) init(slice []int, nextMove bool) {

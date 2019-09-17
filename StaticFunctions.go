@@ -1,6 +1,8 @@
 package main
 
-import "math"
+import (
+	"math"
+)
 
 type MoveSortingMode byte
 const (
@@ -56,9 +58,9 @@ func pieceAtColor(boardPos BoardPosition, point Point, color bool) bool{
 }
 
 // returns piece at point, else emptyPiece
-func getPiece(boardPos BoardPosition, point Point) Piece{
+func getPiece(boardPos BoardPosition, point Point) *Pawn{
 	a := Pawn{}
-	return a
+	return &a
 }
 
 // returns all valid moves for given position
@@ -81,9 +83,18 @@ func allValidMoves(boardPos BoardPosition, sortingMode MoveSortingMode) []Move{
 
 // returns a clone of boardPos
 func clone(boardPos BoardPosition) BoardPosition {
-	newPos := boardPos
-	newPos.WhitePieces = make([]Piece, len(boardPos.WhitePieces))
-	copy(newPos.WhitePieces, boardPos.WhitePieces)
+	var newPos BoardPosition
+	for _, piece := range boardPos.WhitePieces {
+		newPos.WhitePieces = append(newPos.WhitePieces, piece.clone())
+	}
+	for _, piece := range boardPos.BlackPieces {
+		newPos.BlackPieces = append(newPos.BlackPieces, piece.clone())
+	}
+	newPos.nextMove = boardPos.nextMove
+	newPos.prevMove.start.x = boardPos.prevMove.start.x
+	newPos.prevMove.start.y = boardPos.prevMove.start.y
+	newPos.prevMove.end.x = boardPos.prevMove.end.x
+	newPos.prevMove.end.y = boardPos.prevMove.end.y
 	return newPos
 }
 

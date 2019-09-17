@@ -9,6 +9,8 @@ type Piece interface {
 	validMove(boardPos BoardPosition, move Move) bool
 	getPosition() Point
 	getValue() byte
+	setPosition(point Point)
+	clone() Piece
 }
 
 type Pawn struct {
@@ -135,12 +137,25 @@ func (piece Pawn) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
+func (piece *Pawn) setPosition(point Point) {
+	piece.position = point
+}
+
 func (piece Pawn) getPosition() Point {
 	return piece.position
 }
 
 func (piece Pawn) getValue() byte {
 	return piece.value
+}
+
+func (piece Pawn) clone() Piece {
+	var newPawn Pawn
+	newPawn.position.x = piece.position.x
+	newPawn.position.y = piece.position.y
+	newPawn.color = piece.color
+	newPawn.value = piece.value
+	return newPawn
 }
 
 
@@ -194,12 +209,25 @@ func (piece King) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
+func (piece King) setPosition(point Point) {
+	piece.position = point
+}
+
 func (piece King) getPosition() Point{
 	return piece.position
 }
 
 func (piece King) getValue() byte {
 	return piece.value
+}
+
+func (piece King) clone() Piece {
+	var newPiece King
+	newPiece.position.x = piece.position.x
+	newPiece.position.y = piece.position.y
+	newPiece.color = piece.color
+	newPiece.value = piece.value
+	return newPiece
 }
 
 
@@ -270,12 +298,25 @@ func (piece Queen) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
+func (piece Queen) setPosition(point Point) {
+	piece.position = point
+}
+
 func (piece Queen) getPosition() Point{
 	return piece.position
 }
 
 func (piece Queen) getValue() byte {
 	return piece.value
+}
+
+func (piece Queen) clone() Piece {
+	var newPiece Queen
+	newPiece.position.x = piece.position.x
+	newPiece.position.y = piece.position.y
+	newPiece.color = piece.color
+	newPiece.value = piece.value
+	return newPiece
 }
 
 
@@ -321,12 +362,25 @@ func (piece Bishop) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
+func (piece Bishop) setPosition(point Point) {
+	piece.position = point
+}
+
 func (piece Bishop) getPosition() Point{
 	return piece.position
 }
 
 func (piece Bishop) getValue() byte {
 	return piece.value
+}
+
+func (piece Bishop) clone() Piece {
+	var newPiece Bishop
+	newPiece.position.x = piece.position.x
+	newPiece.position.y = piece.position.y
+	newPiece.color = piece.color
+	newPiece.value = piece.value
+	return newPiece
 }
 
 
@@ -371,12 +425,25 @@ func (piece Rook) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
+func (piece Rook) setPosition(point Point) {
+	piece.position = point
+}
+
 func (piece Rook) getPosition() Point{
 	return piece.position
 }
 
 func (piece Rook) getValue() byte {
 	return piece.value
+}
+
+func (piece Rook) clone() Piece {
+	var newPiece Rook
+	newPiece.position.x = piece.position.x
+	newPiece.position.y = piece.position.y
+	newPiece.color = piece.color
+	newPiece.value = piece.value
+	return newPiece
 }
 
 
@@ -428,10 +495,23 @@ func (piece Knight) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
+func (piece Knight) setPosition(point Point) {
+	piece.position = point
+}
+
 func (piece Knight) getPosition() Point{
 	return piece.position
 }
 
 func (piece Knight) getValue() byte {
 	return piece.value
+}
+
+func (piece Knight) clone() Piece {
+	var newPiece Knight
+	newPiece.position.x = piece.position.x
+	newPiece.position.y = piece.position.y
+	newPiece.color = piece.color
+	newPiece.value = piece.value
+	return newPiece
 }
