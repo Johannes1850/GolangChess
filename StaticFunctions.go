@@ -14,7 +14,16 @@ const (
 // BoardPosition functions
 
 func eval(boardPos BoardPosition) float32{
-	return -0.3
+	var whiteCount float32
+	for _, piece := range boardPos.WhitePieces {
+		whiteCount += float32(piece.getValue())
+	}
+	var blackCount float32
+	for _, piece := range boardPos.BlackPieces {
+		blackCount += float32(piece.getValue())
+	}
+	posEval := (whiteCount / blackCount)-1
+	return posEval
 }
 
 func kingAtColor(boardPos BoardPosition, point Point, color bool) bool {

@@ -155,7 +155,7 @@ func (piece Pawn) clone() Piece {
 	newPawn.position.y = piece.position.y
 	newPawn.color = piece.color
 	newPawn.value = piece.value
-	return newPawn
+	return &newPawn
 }
 
 
@@ -209,7 +209,7 @@ func (piece King) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
-func (piece King) setPosition(point Point) {
+func (piece *King) setPosition(point Point) {
 	piece.position = point
 }
 
@@ -227,7 +227,7 @@ func (piece King) clone() Piece {
 	newPiece.position.y = piece.position.y
 	newPiece.color = piece.color
 	newPiece.value = piece.value
-	return newPiece
+	return &newPiece
 }
 
 
@@ -298,7 +298,7 @@ func (piece Queen) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
-func (piece Queen) setPosition(point Point) {
+func (piece *Queen) setPosition(point Point) {
 	piece.position = point
 }
 
@@ -316,7 +316,7 @@ func (piece Queen) clone() Piece {
 	newPiece.position.y = piece.position.y
 	newPiece.color = piece.color
 	newPiece.value = piece.value
-	return newPiece
+	return &newPiece
 }
 
 
@@ -362,7 +362,7 @@ func (piece Bishop) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
-func (piece Bishop) setPosition(point Point) {
+func (piece *Bishop) setPosition(point Point) {
 	piece.position = point
 }
 
@@ -380,7 +380,7 @@ func (piece Bishop) clone() Piece {
 	newPiece.position.y = piece.position.y
 	newPiece.color = piece.color
 	newPiece.value = piece.value
-	return newPiece
+	return &newPiece
 }
 
 
@@ -425,7 +425,7 @@ func (piece Rook) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
-func (piece Rook) setPosition(point Point) {
+func (piece *Rook) setPosition(point Point) {
 	piece.position = point
 }
 
@@ -443,7 +443,7 @@ func (piece Rook) clone() Piece {
 	newPiece.position.y = piece.position.y
 	newPiece.color = piece.color
 	newPiece.value = piece.value
-	return newPiece
+	return &newPiece
 }
 
 
@@ -495,7 +495,7 @@ func (piece Knight) allMoves(boardPos BoardPosition) []Move{
 	return retMoveList
 }
 
-func (piece Knight) setPosition(point Point) {
+func (piece *Knight) setPosition(point Point) {
 	piece.position = point
 }
 
@@ -513,5 +513,5 @@ func (piece Knight) clone() Piece {
 	newPiece.position.y = piece.position.y
 	newPiece.color = piece.color
 	newPiece.value = piece.value
-	return newPiece
+	return &newPiece
 }
