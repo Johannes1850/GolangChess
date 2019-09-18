@@ -4,9 +4,7 @@
     <list default="true" id="06edab0d-039a-4751-8537-88d8ff814017" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ai.go" beforeDir="false" afterPath="$PROJECT_DIR$/Ai.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pieces.go" beforeDir="false" afterPath="$PROJECT_DIR$/Pieces.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Position.go" beforeDir="false" afterPath="$PROJECT_DIR$/Position.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StaticFunctions.go" beforeDir="false" afterPath="$PROJECT_DIR$/StaticFunctions.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go_build_ThirdChess" beforeDir="false" afterPath="$PROJECT_DIR$/go_build_ThirdChess" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,7 +35,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -103,7 +101,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

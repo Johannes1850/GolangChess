@@ -88,7 +88,7 @@ func (boardPos *BoardPosition) init(slice []int, nextMove bool) {
 		case 0:
 			boardPos.WhitePieces = append(boardPos.WhitePieces, &Pawn{piecePosition, 1, true})
 		case 1:
-			boardPos.WhitePieces= append(boardPos.WhitePieces, &King{piecePosition, 10, true})
+			boardPos.WhitePieces= append(boardPos.WhitePieces, &King{piecePosition, 100, true})
 		case 2:
 			boardPos.WhitePieces= append(boardPos.WhitePieces, &Queen{piecePosition, 9, true})
 		case 3:
@@ -101,7 +101,7 @@ func (boardPos *BoardPosition) init(slice []int, nextMove bool) {
 		case 6:
 			boardPos.BlackPieces= append(boardPos.BlackPieces, &Pawn{piecePosition, 1, false})
 		case 7:
-			boardPos.BlackPieces = append(boardPos.BlackPieces, &King{piecePosition, 10, false})
+			boardPos.BlackPieces = append(boardPos.BlackPieces, &King{piecePosition, 100, false})
 		case 8:
 			boardPos.BlackPieces = append(boardPos.BlackPieces, &Queen{piecePosition, 9, false})
 		case 9:
