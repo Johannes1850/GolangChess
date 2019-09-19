@@ -100,7 +100,11 @@ class Position {
     PlayMoveAlways(move) {
         let piece = this.PieceAt(move.start);
         this.RemovePiece(this.PieceAt(move.end));
-        piece.updatePosition(move.end);
+        // pawn promotion
+        if (piece instanceof Pawn && (move.end.y == 7 || move.end.y == 0)) {
+            this.RemovePiece(this.PieceAt(move.start));
+            this.addQueen(move.end);
+        } else {piece.updatePosition(move.end);}
     }
 
     PlayMove(move) {

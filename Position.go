@@ -48,6 +48,11 @@ func (boardPos *BoardPosition) movePiece(move Move) {
 		for _, piece := range boardPos.WhitePieces {
 			if piece.getPosition() == move.start {
 				boardPos.removePiece(move.end, !boardPos.nextMove)
+				if piece.getValue() == 1 && move.end.y == 8{
+					boardPos.removePiece(move.start, boardPos.nextMove)
+					boardPos.WhitePieces = append(boardPos.WhitePieces, &Queen{move.end, 9, true})
+					return
+				}
 				piece.setPosition(move.end)
 				return
 			}
@@ -57,6 +62,11 @@ func (boardPos *BoardPosition) movePiece(move Move) {
 		for _, piece := range boardPos.BlackPieces {
 			if piece.getPosition() == move.start {
 				boardPos.removePiece(move.end, !boardPos.nextMove)
+				if piece.getValue() == 1 && move.end.y == 1 {
+					boardPos.removePiece(move.start, boardPos.nextMove)
+					boardPos.BlackPieces = append(boardPos.BlackPieces, &Queen{move.end, 9, false})
+					return
+				}
 				piece.setPosition(move.end)
 				return
 			}
@@ -88,7 +98,7 @@ func (boardPos *BoardPosition) init(slice []int, nextMove bool) {
 		case 0:
 			boardPos.WhitePieces = append(boardPos.WhitePieces, &Pawn{piecePosition, 1, true})
 		case 1:
-			boardPos.WhitePieces= append(boardPos.WhitePieces, &King{piecePosition, 100, true})
+			boardPos.WhitePieces= append(boardPos.WhitePieces, &King{piecePosition, 10, true})
 		case 2:
 			boardPos.WhitePieces= append(boardPos.WhitePieces, &Queen{piecePosition, 9, true})
 		case 3:
@@ -101,7 +111,7 @@ func (boardPos *BoardPosition) init(slice []int, nextMove bool) {
 		case 6:
 			boardPos.BlackPieces= append(boardPos.BlackPieces, &Pawn{piecePosition, 1, false})
 		case 7:
-			boardPos.BlackPieces = append(boardPos.BlackPieces, &King{piecePosition, 100, false})
+			boardPos.BlackPieces = append(boardPos.BlackPieces, &King{piecePosition, 10, false})
 		case 8:
 			boardPos.BlackPieces = append(boardPos.BlackPieces, &Queen{piecePosition, 9, false})
 		case 9:

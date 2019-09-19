@@ -15,13 +15,20 @@ const (
 
 func eval(boardPos BoardPosition) float32{
 	var whiteCount float32
+	var blackCount float32
+	var whiteKingExists bool = false
+	var blackKingExists bool = false
 	for _, piece := range boardPos.WhitePieces {
+		if piece.getValue() == 10 {whiteKingExists = true}
 		whiteCount += float32(piece.getValue())
 	}
-	var blackCount float32
 	for _, piece := range boardPos.BlackPieces {
+		if piece.getValue() == 10 {blackKingExists = true}
 		blackCount += float32(piece.getValue())
 	}
+	if !blackKingExists && !whiteKingExists {return 0}
+	if !blackKingExists {return 1}
+	if !whiteKingExists {return -1}
 	posEval := (whiteCount / blackCount)-1
 	return posEval
 }
