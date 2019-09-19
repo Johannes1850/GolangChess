@@ -5,7 +5,7 @@ import (
 )
 
 type Piece interface {
-	allMoves(boardPos BoardPosition) []Move
+	allMoves(boardPos BoardPosition) []MoveAndEval
 	validMove(boardPos BoardPosition, move Move) bool
 	getPosition() Point
 	getValue() byte
@@ -94,44 +94,44 @@ func (piece Pawn) validMove(boardPos BoardPosition, move Move) bool {
 	return false
 }
 
-func (piece Pawn) allMoves(boardPos BoardPosition) []Move{
-	var retMoveList []Move
+func (piece Pawn) allMoves(boardPos BoardPosition) []MoveAndEval{
+	var retMoveList []MoveAndEval
 	var move Move
 	if piece.color {
 		move = Move{piece.position, Point{piece.position.x+1, piece.position.y+1}}
 		if piece.validMove(boardPos, move) {
-		 	retMoveList = append(retMoveList, move)
+		 	retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		}
 		move = Move{piece.position, Point{piece.position.x-1, piece.position.y+1}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		}
 		move := Move{piece.position, Point{piece.position.x, piece.position.y+1}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval:0})
 		}
 		move = Move{piece.position, Point{piece.position.x, piece.position.y+2}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval:0})
 		}
 	}
 
 	if !piece.color {
 		move = Move{piece.position, Point{piece.position.x+1, piece.position.y-1}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		}
 		move = Move{piece.position, Point{piece.position.x-1, piece.position.y-1}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		}
 		move := Move{piece.position, Point{piece.position.x, piece.position.y-1}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval:0})
 		}
 		move = Move{piece.position, Point{piece.position.x, piece.position.y-2}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval:0})
 		}
 	}
 	return retMoveList
@@ -171,40 +171,40 @@ func (piece King) validMove(boardPos BoardPosition, move Move) bool {
 	return false
 }
 
-func (piece King) allMoves(boardPos BoardPosition) []Move{
-	var retMoveList []Move
+func (piece King) allMoves(boardPos BoardPosition) []MoveAndEval{
+	var retMoveList []MoveAndEval
 	var move Move
 	move = Move{piece.position, Point{piece.position.x+1, piece.position.y+1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x+1, piece.position.y}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x+1, piece.position.y-1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x-1, piece.position.y+1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x-1, piece.position.y}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x-1, piece.position.y-1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x, piece.position.y+1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x, piece.position.y-1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	return retMoveList
 }
@@ -244,55 +244,55 @@ func (piece Queen) validMove(boardPos BoardPosition, move Move) bool {
 	return false
 }
 
-func (piece Queen) allMoves(boardPos BoardPosition) []Move{
-	var retMoveList []Move
+func (piece Queen) allMoves(boardPos BoardPosition) []MoveAndEval{
+	var retMoveList []MoveAndEval
 	var move Move
 	for i := 1; i <= 8; i++ {
 		move = Move{piece.position, Point{piece.position.x+byte(i), piece.position.y+byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 8; i++ {
 		move = Move{piece.position, Point{piece.position.x+byte(i), piece.position.y-byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 8; i++ {
 		move = Move{piece.position, Point{piece.position.x-byte(i), piece.position.y+byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 8; i++ {
 		move = Move{piece.position, Point{piece.position.x-byte(i), piece.position.y-byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 7; i++ {
 		move = Move{piece.position, Point{piece.position.x, piece.position.y+byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 7; i++ {
 		move = Move{piece.position, Point{piece.position.x, piece.position.y-byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 7; i++ {
 		move = Move{piece.position, Point{piece.position.x+byte(i), piece.position.y}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 7; i++ {
 		move = Move{piece.position, Point{piece.position.x-byte(i), piece.position.y}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	return retMoveList
@@ -332,31 +332,31 @@ func (piece Bishop) validMove(boardPos BoardPosition, move Move) bool {
 	return false
 }
 
-func (piece Bishop) allMoves(boardPos BoardPosition) []Move{
-	var retMoveList []Move
+func (piece Bishop) allMoves(boardPos BoardPosition) []MoveAndEval{
+	var retMoveList []MoveAndEval
 	var move Move
 	for i := 1; i <= 8; i++ {
 		move = Move{piece.position, Point{piece.position.x+byte(i), piece.position.y+byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 8; i++ {
 		move = Move{piece.position, Point{piece.position.x+byte(i), piece.position.y-byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 8; i++ {
 		move = Move{piece.position, Point{piece.position.x-byte(i), piece.position.y+byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 8; i++ {
 		move = Move{piece.position, Point{piece.position.x-byte(i), piece.position.y-byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	return retMoveList
@@ -395,31 +395,31 @@ func (piece Rook) validMove(boardPos BoardPosition, move Move) bool {
 	return false
 }
 
-func (piece Rook) allMoves(boardPos BoardPosition) []Move{
-	var retMoveList []Move
+func (piece Rook) allMoves(boardPos BoardPosition) []MoveAndEval{
+	var retMoveList []MoveAndEval
 	var move Move
 	for i := 1; i <= 7; i++ {
 		move = Move{piece.position, Point{piece.position.x, piece.position.y+byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 7; i++ {
 		move = Move{piece.position, Point{piece.position.x, piece.position.y-byte(i)}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 7; i++ {
 		move = Move{piece.position, Point{piece.position.x+byte(i), piece.position.y}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	for i := 1; i <= 7; i++ {
 		move = Move{piece.position, Point{piece.position.x-byte(i), piece.position.y}}
 		if piece.validMove(boardPos, move) {
-			retMoveList = append(retMoveList, move)
+			retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 		} else {break}
 	}
 	return retMoveList
@@ -457,40 +457,40 @@ func (piece Knight) validMove(boardPos BoardPosition, move Move) bool {
 	return false
 }
 
-func (piece Knight) allMoves(boardPos BoardPosition) []Move{
-	var retMoveList []Move
+func (piece Knight) allMoves(boardPos BoardPosition) []MoveAndEval{
+	var retMoveList []MoveAndEval
 	var move Move
 	move = Move{piece.position, Point{piece.position.x+2, piece.position.y+1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x+2, piece.position.y-1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x+1, piece.position.y+2}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x+1, piece.position.y-2}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x-2, piece.position.y+1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x-2, piece.position.y-1}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x-1, piece.position.y+2}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	move = Move{piece.position, Point{piece.position.x-1, piece.position.y-2}}
 	if piece.validMove(boardPos, move) {
-		retMoveList = append(retMoveList, move)
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
 	}
 	return retMoveList
 }

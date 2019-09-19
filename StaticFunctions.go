@@ -2,6 +2,7 @@ package main
 
 import (
 	"math"
+	"sort"
 )
 
 type MoveSortingMode byte
@@ -58,6 +59,21 @@ func pieceAt(boardPos BoardPosition, point Point) bool{
 	return false
 }
 
+// returns value of piece at point, 0 else
+func pieceAtValue(boardPos BoardPosition, point Point, color bool) byte {
+	if color == true {
+		for _, element := range boardPos.WhitePieces {
+			if element.getPosition() == point { return element.getValue() }
+		}
+	}
+	if color == false {
+		for _, element := range boardPos.BlackPieces {
+			if element.getPosition() == point { return element.getValue() }
+		}
+	}
+	return 0
+}
+
 // returns true, if piece of given color exists at point
 func pieceAtColor(boardPos BoardPosition, point Point, color bool) bool{
 	if color == true {
@@ -80,8 +96,8 @@ func getPiece(boardPos BoardPosition, point Point) *Pawn{
 }
 
 // returns all valid moves for given position
-func allValidMoves(boardPos BoardPosition, sortingMode MoveSortingMode) []Move{
-	var retMoveList []Move
+func allValidMoves(boardPos BoardPosition, sortingMode MoveSortingMode) []MoveAndEval{
+	var retMoveList []MoveAndEval
 	// All white moves
 	if boardPos.nextMove {
 		for _, element := range boardPos.WhitePieces {
@@ -94,6 +110,10 @@ func allValidMoves(boardPos BoardPosition, sortingMode MoveSortingMode) []Move{
 			retMoveList = append(retMoveList, element.allMoves(boardPos)...)
 		}
 	}
+	// descending
+	sort.SliceStable(retMoveList, func(i, j int) bool {
+		return retMoveList[i].eval > retMoveList[j].eval
+	})
 	return retMoveList
 }
 

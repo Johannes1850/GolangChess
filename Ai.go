@@ -32,8 +32,7 @@ func (aiPlayer *AiPlayer) init(slice []int, nextMove bool) {
 }
 
 func (aiPlayer *AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha float32, beta float32, color bool, prevMove Move) float32{
-	if depth == 8 {aiPlayer.count++}
-	fmt.Println(depth)
+	aiPlayer.count++
 	posEval := eval(position)
 	if depth == MAX_DEPTH {
 		return posEval
@@ -42,21 +41,18 @@ func (aiPlayer *AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha f
 	allMoves := allValidMoves(position, 1)
 	if depth == 1 {aiPlayer.SortMoveList(position, &allMoves, 4, color, false)}
 	if depth == 2 {aiPlayer.SortMoveList(position, &allMoves, 3, color, false)}
-	if depth == 3 {aiPlayer.SortMoveList(position, &allMoves, 2, color, false)}
-	if depth == 4 {aiPlayer.SortMoveList(position, &allMoves, 2, color, false)}
-	if depth >= 6 {
-		aiPlayer.SortMoveList(position, &allMoves, 2, color, true)
-	}
-	if len(allMoves) == 0 {return posEval}
+	if depth == 3 {aiPlayer.SortMoveList(position, &allMoves, 3, color, false)}
+	if len(allMoves) == 0 || (allMoves[0].eval == 0 && depth >= MAX_DEPTH-2) {return posEval}
 	// if depth == 4 {aiPlayer.SortMoveList(position, &allMoves, 2, color)}
 	// if color is white
 	if position.nextMove {
 		var maxEval float32 = -10000
 		for _, move := range allMoves {
+			if depth >= MAX_DEPTH-2 {if move.eval == 0 {break}}
 			newPos = clone(position)
-			newPos.movePiece(move)
+			newPos.movePiece(move.move)
 			newPos.nextMove = !position.nextMove
-			depthEval := aiPlayer.TreeSearch(newPos, depth+1, alpha, beta, !color, move)
+			depthEval := aiPlayer.TreeSearch(newPos, depth+1, alpha, beta, !color, move.move)
 
 			if depthEval > maxEval {maxEval = depthEval}
 			alpha = float32(math.Max(float64(alpha), float64(depthEval)))
@@ -76,10 +72,11 @@ func (aiPlayer *AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha f
 	if !position.nextMove {
 		var minEval float32 = 10000
 		for _, move := range allMoves {
+			if depth >= MAX_DEPTH-2 {if move.eval == 0 {break}}
 			newPos = clone(position)
-			newPos.movePiece(move)
+			newPos.movePiece(move.move)
 			newPos.nextMove = !position.nextMove
-			depthEval := aiPlayer.TreeSearch(newPos, depth+1, alpha, beta, !color, move)
+			depthEval := aiPlayer.TreeSearch(newPos, depth+1, alpha, beta, !color, move.move)
 
 			if depthEval < minEval {minEval = depthEval}
 			beta = float32(math.Min(float64(beta), float64(depthEval)))
@@ -97,7 +94,7 @@ func (aiPlayer *AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha f
 }
 
 // sorts moveList by TreeSearch of depth
-func (aiPlayer *AiPlayer) SortMoveList(boardPos BoardPosition, unsortedMoveList *[]Move, depth byte, color bool, onlyImproving bool) {
+func (aiPlayer *AiPlayer) SortMoveList(boardPos BoardPosition, unsortedMoveList *[]MoveAndEval, depth byte, color bool, onlyImproving bool) {
 	aiPlayer.moveList = nil
 	MAX_SORTING_DEPTH = depth
 	posEval := eval(boardPos)
@@ -110,7 +107,7 @@ func (aiPlayer *AiPlayer) SortMoveList(boardPos BoardPosition, unsortedMoveList 
 		if onlyImproving {
 			*unsortedMoveList = nil
 			for _, element := range aiPlayer.moveList {
-				if element.eval > posEval {*unsortedMoveList = append(*unsortedMoveList, element.move)} else {return}
+				if element.eval > posEval {*unsortedMoveList = append(*unsortedMoveList, element)} else {return}
 			}
 		}
 	}
@@ -122,18 +119,15 @@ func (aiPlayer *AiPlayer) SortMoveList(boardPos BoardPosition, unsortedMoveList 
 		if onlyImproving {
 			*unsortedMoveList = nil
 			for _, element := range aiPlayer.moveList {
-				if element.eval < posEval {*unsortedMoveList = append(*unsortedMoveList, element.move)} else {return}
+				if element.eval < posEval {*unsortedMoveList = append(*unsortedMoveList, element)} else {return}
 			}
 		}
 	}
 	*unsortedMoveList = nil
-	for _, element := range aiPlayer.moveList {
-		*unsortedMoveList = append(*unsortedMoveList, element.move)
-	}
-	// if color {fmt.Println("Jetzt hier aaah", *unsortedMoveList)}
+	*unsortedMoveList = aiPlayer.moveList
 }
 
-func (aiPlayer *AiPlayer) SortTreeSearch(position BoardPosition, depth byte, alpha float32, beta float32, color bool, prevMove Move, moveList []Move) float32{
+func (aiPlayer *AiPlayer) SortTreeSearch(position BoardPosition, depth byte, alpha float32, beta float32, color bool, prevMove Move, moveList []MoveAndEval) float32{
 	aiPlayer.count++
 	posEval := eval(position)
 	if depth == MAX_SORTING_DEPTH {
@@ -143,16 +137,16 @@ func (aiPlayer *AiPlayer) SortTreeSearch(position BoardPosition, depth byte, alp
 		return posEval
 	}
 	var newPos BoardPosition
-	var allMoves []Move
+	var allMoves []MoveAndEval
 	if depth == 1 {allMoves = moveList} else {allMoves = allValidMoves(position, 1)}
 	// if color is white
 	if position.nextMove {
 		var maxEval float32 = -10000
 		for _, move := range allMoves {
 			newPos = clone(position)
-			newPos.movePiece(move)
+			newPos.movePiece(move.move)
 			newPos.nextMove = !position.nextMove
-			depthEval := aiPlayer.SortTreeSearch(newPos, depth+1, alpha, beta, !color, move, nil)
+			depthEval := aiPlayer.SortTreeSearch(newPos, depth+1, alpha, beta, !color, move.move, nil)
 
 			if depthEval > maxEval {maxEval = depthEval}
 			alpha = float32(math.Max(float64(alpha), float64(depthEval)))
@@ -169,9 +163,9 @@ func (aiPlayer *AiPlayer) SortTreeSearch(position BoardPosition, depth byte, alp
 		var minEval float32 = 10000
 		for _, move := range allMoves {
 			newPos = clone(position)
-			newPos.movePiece(move)
+			newPos.movePiece(move.move)
 			newPos.nextMove = !position.nextMove
-			depthEval := aiPlayer.SortTreeSearch(newPos, depth+1, alpha, beta, !color, move, nil)
+			depthEval := aiPlayer.SortTreeSearch(newPos, depth+1, alpha, beta, !color, move.move, nil)
 
 			if depthEval < minEval {minEval = depthEval}
 			beta = float32(math.Min(float64(beta), float64(depthEval)))
