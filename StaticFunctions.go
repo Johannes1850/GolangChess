@@ -19,11 +19,7 @@ func eval(boardPos BoardPosition) float32{
 	var blackCount float32
 	var whitePosCount int16
 	var blackPosCount int16
-	var whiteKingExists bool = false
-	var blackKingExists bool = false
 	for _, piece := range boardPos.WhitePieces {
-		if piece.getValue() == 10 {whiteKingExists = true}
-
 		// pawn value at position
 		piecePos := piece.getPosition()
 		if piece.getValue() == 1 {whitePosCount += pawnPlacement[8-piecePos.y][piecePos.x-1]}
@@ -42,7 +38,6 @@ func eval(boardPos BoardPosition) float32{
 		whiteCount += float32(piece.getValue())
 	}
 	for _, piece := range boardPos.BlackPieces {
-		if piece.getValue() == 10 {blackKingExists = true}
 		// pawn value at position
 		piecePos := piece.getPosition()
 		if piece.getValue() == 1 {blackPosCount += pawnPlacement[piecePos.y-1][piecePos.x-1]}
@@ -59,12 +54,9 @@ func eval(boardPos BoardPosition) float32{
 		if piece.getValue() == 10 {blackPosCount += kingPlacement[piecePos.y-1][piecePos.x-1]}
 		blackCount += float32(piece.getValue())
 	}
-	if !blackKingExists && !whiteKingExists {return 0}
-	if !blackKingExists {return 1}
-	if !whiteKingExists {return -1}
 	whitePosCount += 200
 	blackPosCount += 200
-	posQuotient := float32((whitePosCount / blackPosCount)-1)*0.03
+	posQuotient := float32((whitePosCount / blackPosCount)-1)*0.02
 	posEval := posQuotient + (whiteCount / blackCount)-1
 	return posEval
 }

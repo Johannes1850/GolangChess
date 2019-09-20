@@ -12,22 +12,25 @@
     <script language="javascript" type="text/javascript" src="js/Pieces.js"></script>
 </head>
 <body onload="MainGame.Draw()">
-<h1 style="font-family: 'Livvic', sans-serif">ChessOne - a lightweight neural chess engine</h1>
-<canvas style="margin: 30px; float: left;" id="myCanvas"></canvas>
+<div style="display: block; margin: auto; width: 1000px;">
+    <h1 style="font-family: 'Livvic', sans-serif">ChessOne - a simple chess engine</h1>
+    <canvas style="" id="myCanvas"></canvas>
+</div>
 <script>
     const canvas = document.getElementById("myCanvas");
-    canvas.width = 1200;     // equals window dimension
-    canvas.height = 1200;
-    canvas.style.width = "600px";
-    canvas.style.height = "600px";
+    canvas.width = 1400;     // equals window dimension
+    canvas.height = 1400;
+    canvas.style.width = "700px";
+    canvas.style.height = "700px";
     const ctx = canvas.getContext("2d");
     let img = new Image();
-    img.src = "images/chessboard3.png";
+    img.src = "images/chessboard.png";
     canvas.addEventListener('click', mouseClick, false);
     const MainGame = new Game(canvas.width/2);
-
+    let box = canvas.getBoundingClientRect();
     function mouseClick(event) {
-        MainGame.Update(event.clientX-40, event.clientY-114);
+        console.log(event.clientY-box.top, event.clientY)
+        MainGame.Update(event.clientX-box.left, event.clientY-box.top);
         MainGame.Draw();
     }
 </script>

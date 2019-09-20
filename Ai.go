@@ -39,12 +39,15 @@ func (aiPlayer *AiPlayer) init(slice []int, nextMove bool) {
 func (aiPlayer *AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha float32, beta float32, color bool, prevMove MoveAndDepth) float32{
 	aiPlayer.count++
 	posEval := eval(position)
-	maxDepth := prevMove.maxDepth
 	if depth == prevMove.maxDepth {
 		return posEval
 	}
+	maxDepth := prevMove.maxDepth
 	var newPos BoardPosition
 	allMoves := allValidMoves(position, 1)
+	if allMoves[0].eval == 10 {
+		if color {return 1} else {return -1}
+	}
 	start := time.Now()
 	if depth == 1 {aiPlayer.SortMoveList(position, &allMoves, 6, color, false)}
 	elapsed := time.Since(start)
@@ -52,7 +55,7 @@ func (aiPlayer *AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha f
 		log.Printf("Binomial took %s", elapsed.Seconds())
 		fmt.Println(allMoves)
 	}
-	if depth == 2 {aiPlayer.SortMoveList(position, &allMoves, 3, color, false)}
+	if depth == 2 {aiPlayer.SortMoveList(position, &allMoves, 4, color, false)}
 	if depth == 3 {aiPlayer.SortMoveList(position, &allMoves, 3, color, false)}
 	if depth == 4 {aiPlayer.SortMoveList(position, &allMoves, 2, color, false)}
 	if prevMove.maxDepth == 8 {
@@ -66,12 +69,18 @@ func (aiPlayer *AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha f
 		var maxEval float32 = -10000
 		for index, move := range allMoves {
 			if depth == 1 {
-				if index < 2 {maxDepth = 8}
+				if index < 2 {maxDepth = 7}
 				if index >= 2 && index < 6 {maxDepth = 7}
 				if index >= 6 && index < 10 {maxDepth = 6}
 				if index >= 10 && index < 15 {maxDepth = 5}
 				if index >= 15 {maxDepth = 5}
 			}
+			if depth == 2 {
+				if index >= 4 && index < 7 {maxDepth -= 1}
+				if index >= 7 && index < 13 {maxDepth -= 2}
+				if index >= 13 && index < 15 {maxDepth -= 3}
+			}
+			if maxDepth < 5 {maxDepth = 5}
 			newPos = clone(position)
 			newPos.movePiece(move.move)
 			newPos.nextMove = !position.nextMove
@@ -96,12 +105,18 @@ func (aiPlayer *AiPlayer) TreeSearch(position BoardPosition, depth byte, alpha f
 		var minEval float32 = 10000
 		for index, move := range allMoves {
 			if depth == 1 {
-				if index < 3 {maxDepth = 8}
+				if index < 3 {maxDepth = 7}
 				if index >= 3 && index < 6 {maxDepth = 7}
 				if index >= 6 && index < 10 {maxDepth = 6}
 				if index >= 10 && index < 15 {maxDepth = 5}
 				if index >= 15 {maxDepth = 5}
 			}
+			if depth == 2 {
+				if index >= 4 && index < 7 {maxDepth -= 1}
+				if index >= 7 && index < 13 {maxDepth -= 2}
+				if index >= 13 && index < 15 {maxDepth -= 3}
+			}
+			if maxDepth < 5 {maxDepth = 5}
 			newPos = clone(position)
 			newPos.movePiece(move.move)
 			newPos.nextMove = !position.nextMove

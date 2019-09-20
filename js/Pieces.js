@@ -18,11 +18,14 @@ class Piece {
     }
 
     Draw() {
+        let pieceSize = 130;
+        let selectedPieceSize = 150;
         if (this.selected) {
-            ctx.drawImage(this.sprite, this.position.x * 152 + 5, this.position.y * 152 + 5, 120, 120);
+            ctx.drawImage(this.sprite, this.position.x * (canvas.width/8)
+                + pieceSize / 7, this.position.y * (canvas.width/8) + pieceSize / 7, selectedPieceSize, selectedPieceSize);
             return;
         }
-        ctx.drawImage(this.sprite, this.position.x * 152 + 15, this.position.y * 152 + 15, 100, 100);
+        ctx.drawImage(this.sprite, this.position.x * (canvas.width/8) + pieceSize / 6, this.position.y * (canvas.width/8) + pieceSize / 6, pieceSize, pieceSize);
     }
 
     updatePosition(newPos) {
@@ -43,10 +46,10 @@ class Pawn extends Piece {
         super(1, position, color);
         switch (color) {
             case pieceColor.WHITE:
-                this.sprite.src = "images/PawnWhite.png";
+                this.sprite.src = "images/WhitePawn.png";
                 break;
             case pieceColor.BLACK:
-                this.sprite.src = "images/PawnBlack.png";
+                this.sprite.src = "images/BlackPawn.png";
                 break;
         }
     }
@@ -133,10 +136,10 @@ class Rook extends Piece {
         super(5, position, color);
         switch (color) {
             case pieceColor.WHITE:
-                this.sprite.src = "images/RookWhite.png";
+                this.sprite.src = "images/WhiteRook.png";
                 break;
             case pieceColor.BLACK:
-                this.sprite.src = "images/RookBlack.png";
+                this.sprite.src = "images/BlackRook.png";
                 break;
         }
     }
@@ -170,10 +173,10 @@ class Bishop extends Piece {
         super(3, position, color);
         switch (color) {
             case pieceColor.WHITE:
-                this.sprite.src = "images/BishopWhite.png";
+                this.sprite.src = "images/WhiteBishop.png";
                 break;
             case pieceColor.BLACK:
-                this.sprite.src = "images/BishopBlack.png";
+                this.sprite.src = "images/BlackBishop.png";
                 break;
         }
     }
@@ -214,10 +217,10 @@ class Knight extends Piece {
         super(3, position, color);
         switch (color) {
             case pieceColor.WHITE:
-                this.sprite.src = "images/KnightWhite.png";
+                this.sprite.src = "images/WhiteKnight.png";
                 break;
             case pieceColor.BLACK:
-                this.sprite.src = "images/KnightBlack.png";
+                this.sprite.src = "images/BlackKnight.png";
                 break;
         }
     }
@@ -269,10 +272,10 @@ class Queen extends Piece {
         super(9, position, color);
         switch (color) {
             case pieceColor.WHITE:
-                this.sprite.src = "images/QueenWhite.png";
+                this.sprite.src = "images/WhiteQueen.png";
                 break;
             case pieceColor.BLACK:
-                this.sprite.src = "images/QueenBlack.png";
+                this.sprite.src = "images/BlackQueen.png";
                 break;
         }
     }
@@ -320,10 +323,10 @@ class King extends Piece {
         super(10, position, color);
         switch (color) {
             case pieceColor.WHITE:
-                this.sprite.src = "images/KingWhite.png";
+                this.sprite.src = "images/WhiteKing.png";
                 break;
             case pieceColor.BLACK:
-                this.sprite.src = "images/KingBlack.png";
+                this.sprite.src = "images/BlackKing.png";
                 break;
         }
     }
