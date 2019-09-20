@@ -1,3 +1,4 @@
+/**
 class Minimax {
     constructor() {
         this.nextMove = {eval: 0, move: {start: new Point(0,0), end: new Point(0,0)}, third: true};
@@ -108,4 +109,4 @@ class Minimax {
             return maxEval;
         }
     }
-}
+}**/

@@ -4,7 +4,6 @@ class Board {
         this.position.init();
         this.pieceSelected = false;
         this.selectedPiece = null;
-        this.AiPlayer = new Minimax();
         this.aiMove = false;
         this.size = size;
         this.blockHumanMove = false;
