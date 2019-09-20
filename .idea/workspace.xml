@@ -2,38 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06edab0d-039a-4751-8537-88d8ff814017" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/BlackBishop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/BlackKing.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/BlackKnight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/BlackPawn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/BlackQueen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/BlackRook.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/WhiteBishop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/WhiteKing.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/WhiteKnight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/WhitePawn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/WhiteQueen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/WhiteRook.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/chessboard.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ai.go" beforeDir="false" afterPath="$PROJECT_DIR$/Ai.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Position.go" beforeDir="false" afterPath="$PROJECT_DIR$/Position.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StaticFunctions.go" beforeDir="false" afterPath="$PROJECT_DIR$/StaticFunctions.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go_build_ThirdChess" beforeDir="false" afterPath="$PROJECT_DIR$/go_build_ThirdChess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/BishopBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/BishopWhite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/KingBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/KingWhite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/KnightBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/KnightWhite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/PawnBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/PawnWhite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/QueenBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/QueenWhite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/RookBlack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/RookWhite.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Minimax.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Minimax.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/Pieces.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Pieces.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Position.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Position.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

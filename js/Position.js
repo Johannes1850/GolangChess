@@ -32,6 +32,20 @@ class Position {
         }
     }
 
+    exposeKing(move) {
+        let pos = this.clone();
+        pos.PlayMoveAlways(move);
+        let allMoves = [];
+        for (let move of pos.allValidMoves("black", true)) {allMoves.push(move);}
+        if (allMoves.length == 0) {return false}
+        for (let move of allMoves) {
+            let newPos = pos.clone()
+            newPos.PlayMoveAlways(move)
+            if (Math.abs(newPos.evaluation()) == 1) {return true}
+        }
+        return false
+    }
+
     RemovePiece(piece) {
         if (piece.color == pieceColor.WHITE) {
             for (let i = 0; i < this.whitePieces.length; i++) {
@@ -113,6 +127,7 @@ class Position {
         if (piece.isValidMove === "undefined") {return false;}
         // console.log(move.start.x+" "+move.start.y);
         if (piece.isValidMove(move.start, move.end, this)) {
+            if (this.exposeKing(move)) {return false}
             if (this.PieceAtBool(move.end)) {
                 this.RemovePiece(this.PieceAt(move.end));
             }

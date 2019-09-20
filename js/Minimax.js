@@ -12,7 +12,7 @@ class Minimax {
         this.starttime = performance.now();
         this.position = position;
         this.allDepth4Moves = [];
-        this.MAX_LEVEL = 4;
+        this.MAX_LEVEL = 2;
         let minCalculation = this.minimax(position, 1, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, color
             , {start: new Point(0,0), end: new Point(0,0)}, false);
         let avgEval = 0;

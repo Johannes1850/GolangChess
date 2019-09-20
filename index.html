@@ -29,7 +29,6 @@
     const MainGame = new Game(canvas.width/2);
     let box = canvas.getBoundingClientRect();
     function mouseClick(event) {
-        console.log(event.clientY-box.top, event.clientY)
         MainGame.Update(event.clientX-box.left, event.clientY-box.top);
         MainGame.Draw();
     }
