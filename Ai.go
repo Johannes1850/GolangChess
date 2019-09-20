@@ -8,7 +8,6 @@ import (
 	"time"
 )
 
-const MAX_DEPTH  = 8
 var MAX_SORTING_DEPTH byte
 
 type MoveAndEval struct {
