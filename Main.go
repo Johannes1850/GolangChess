@@ -9,21 +9,30 @@ import (
 	"strings"
 )
 
-func startCalc(slice []int, nextMove bool) string{
+func startCalc(slice []int, nextMove bool, posInfo [6]bool) string{
 	var aiPlayer AiPlayer
-	aiPlayer.init(slice, nextMove)
+	aiPlayer.init(slice, nextMove, posInfo)
 	return aiPlayer.stringMove()
+}
+
+func stringToBool(bool string) bool{
+	if bool == "false" {
+		return false
+	} else { return true }
 }
 
 func receiveAjax(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		next_move_string := r.FormValue("next_move")
-		var next_move bool
-		if next_move_string == "false" {
-			next_move = false
-		} else { next_move = true }
-		board_position := r.FormValue("board_position")
-		cleaned := strings.Replace(board_position, ",", " ", -1)
+		nextMove := stringToBool(r.FormValue("next_move"))
+		whiteKingMoved := stringToBool(r.FormValue("whiteKingMoved"))
+		blackKingMoved := stringToBool(r.FormValue("blackKingMoved"))
+		rookA1Moved := stringToBool(r.FormValue("rookA1Moved"))
+		rookH1Moved:= stringToBool(r.FormValue("rookH1Moved"))
+		rookA8Moved := stringToBool(r.FormValue("rookA8Moved"))
+		rookH8Moved := stringToBool(r.FormValue("rookH8Moved"))
+
+		boardPosition := r.FormValue("board_position")
+		cleaned := strings.Replace(boardPosition, ",", " ", -1)
 		strSlice := strings.Fields(cleaned)
 		// create new slice with boolean's
 		intSlice := []int {}
@@ -32,7 +41,7 @@ func receiveAjax(w http.ResponseWriter, r *http.Request) {
 				intSlice = append(intSlice, i)
 			}
 		}
-		aiMove := startCalc(intSlice, next_move)
+		aiMove := startCalc(intSlice, nextMove, [6]bool{whiteKingMoved, blackKingMoved, rookA1Moved, rookH1Moved, rookA8Moved, rookH8Moved})
 		w.Write([]byte(aiMove))
 	}
 }

@@ -56,7 +56,7 @@ func eval(boardPos BoardPosition) float32{
 	}
 	whitePosCount += 200
 	blackPosCount += 200
-	posQuotient := float32((whitePosCount / blackPosCount)-1)*0.02
+	posQuotient := float32((whitePosCount / blackPosCount)-1)*0.05
 	posEval := posQuotient + (whiteCount / blackCount)-1
 	return posEval
 }
@@ -117,9 +117,18 @@ func pieceAtColor(boardPos BoardPosition, point Point, color bool) bool{
 }
 
 // returns piece at point, else emptyPiece
-func getPiece(boardPos BoardPosition, point Point) *Pawn{
-	a := Pawn{}
-	return &a
+func getPiece(boardPos BoardPosition, point Point, color bool) Piece{
+	if color {
+		for _, piece := range boardPos.WhitePieces {
+			if piece.getPosition() == point {return piece}
+		}
+	}
+	if !color {
+		for _, piece := range boardPos.BlackPieces {
+			if piece.getPosition() == point {return piece}
+		}
+	}
+	return &Pawn{}
 }
 
 // returns all valid moves for given position

@@ -340,6 +340,22 @@ class King extends Piece {
             return false;
         }
         if (position.blockingPiece(start, end, this.color)) { return false; }
+
+        if (Math.abs(start.x - end.x) === 2) {
+            if (this.color === pieceColor.WHITE) {
+                if (!position.whiteKingMoved) {
+                    if (start.x - 2 === end.x) {if (!position.RookA1Moved && !position.blockingPiece({x:0,y:7}, {x:3,y:7}, this.color)) {return true;}}
+                    if (start.x + 2 === end.x) {if (!position.RookH1Moved && !position.blockingPiece({x:7,y:7}, {x:5,y:7}, this.color)) {return true;}}
+                }
+            }
+            if (this.color === pieceColor.BLACK) {
+                if (!position.blackKingMoved) {
+                    if (start.x - 2 === end.x) {if (!position.RookA8Moved && !position.blockingPiece({x:0,y:0}, {x:3,y:0}, this.color)) {return true;}}
+                    if (start.x + 2 === end.x) {if (!position.RookH8Moved && !position.blockingPiece({x:7,y:0}, {x:5,y:0}, this.color)) {return true;}}
+                }
+            }
+        }
+
         let diff = new Point(start.x-end.x, start.y-end.y);
         if (Math.abs(diff.x) <= 1 && Math.abs(diff.y) <= 1) return true;
     }

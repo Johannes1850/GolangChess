@@ -163,6 +163,20 @@ func (piece Pawn) clone() Piece {
 func (piece King) validMove(boardPos BoardPosition, move Move) bool {
 	if move.end.x > 8 || move.end.x < 1 || move.end.y > 8 || move.end.y < 1 {return false}
 	if pieceAtColor(boardPos, move.end, piece.color) {return false}
+	if move.start.x - move.end.x == 2 || move.end.x - move.start.x == 2 {
+		if piece.color == true {
+			if !boardPos.whiteKingMoved {
+				if move.start.x - 2 == move.end.x && freeWay(boardPos, Move{start:Point{x:5,y:1}, end:Point{3,1}}) {if !boardPos.RookA1Moved && freeWay(boardPos, Move{start:Point{x:1,y:1}, end:Point{4,1}}) {return true}}
+				if move.start.x + 2 == move.end.x && freeWay(boardPos, Move{start:Point{x:5,y:1}, end:Point{7,1}}) {if !boardPos.RookH1Moved && freeWay(boardPos, Move{start:Point{x:8,y:1}, end:Point{6,1}}) {return true}}
+			}
+		}
+		if piece.color == false {
+			if !boardPos.blackKingMoved {
+				if move.start.x - 2 == move.end.x && freeWay(boardPos, Move{start:Point{x:5,y:8}, end:Point{3,8}}) {if !boardPos.RookA8Moved && freeWay(boardPos, Move{start:Point{x:1,y:8}, end:Point{4,8}}) {return true}}
+				if move.start.x + 2 == move.end.x && freeWay(boardPos, Move{start:Point{x:5,y:8}, end:Point{7,8}}) {if !boardPos.RookH8Moved && freeWay(boardPos, Move{start:Point{x:8,y:8}, end:Point{6,8}}) {return true}}
+			}
+		}
+	}
 	var diffX = int(move.start.x) - int(move.end.x)
 	var diffY = int(move.start.y) - int(move.end.y)
 	if math.Abs(float64(diffX)) <= 1 && math.Abs(float64(diffY)) <= 1 {
@@ -174,6 +188,14 @@ func (piece King) validMove(boardPos BoardPosition, move Move) bool {
 func (piece King) allMoves(boardPos BoardPosition) []MoveAndEval{
 	var retMoveList []MoveAndEval
 	var move Move
+	move = Move{piece.position, Point{piece.position.x+2, piece.position.y}}
+	if piece.validMove(boardPos, move) {
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
+	}
+	move = Move{piece.position, Point{piece.position.x-2, piece.position.y}}
+	if piece.validMove(boardPos, move) {
+		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})
+	}
 	move = Move{piece.position, Point{piece.position.x+1, piece.position.y+1}}
 	if piece.validMove(boardPos, move) {
 		retMoveList = append(retMoveList, MoveAndEval{move:move, eval: float32(pieceAtValue(boardPos, move.end, !piece.color))})

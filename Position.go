@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Point struct {
 	x byte
 	y byte
@@ -13,6 +15,13 @@ type Move struct {
 type BoardPosition struct {
 	// white is true, black is false
 	nextMove bool
+
+	whiteKingMoved bool
+	blackKingMoved bool
+	RookA1Moved bool
+	RookH1Moved bool
+	RookA8Moved bool
+	RookH8Moved bool
 
 	// move that lead to position
 	prevMove Move
@@ -48,6 +57,20 @@ func (boardPos *BoardPosition) movePiece(move Move) {
 		for _, piece := range boardPos.WhitePieces {
 			if piece.getPosition() == move.start {
 				boardPos.removePiece(move.end, !boardPos.nextMove)
+				// castling
+				if piece.getValue() == 10 {
+					if move.start.x-2 == move.end.x && !boardPos.RookA1Moved {
+						boardPos.movePiece(Move{start:Point{1,1}, end:Point{4,1}})
+						boardPos.RookA1Moved = true
+						boardPos.whiteKingMoved = true
+					}
+					if move.start.x+2 == move.end.x && !boardPos.RookH1Moved {
+						boardPos.movePiece(Move{start:Point{8,1}, end:Point{6,1}})
+						boardPos.RookH1Moved = true
+						boardPos.whiteKingMoved = true
+					}
+				}
+				// pawn promotion
 				if piece.getValue() == 1 && move.end.y == 8{
 					boardPos.removePiece(move.start, boardPos.nextMove)
 					boardPos.WhitePieces = append(boardPos.WhitePieces, &Queen{move.end, 9, true})
@@ -62,6 +85,20 @@ func (boardPos *BoardPosition) movePiece(move Move) {
 		for _, piece := range boardPos.BlackPieces {
 			if piece.getPosition() == move.start {
 				boardPos.removePiece(move.end, !boardPos.nextMove)
+				// castling
+				if piece.getValue() == 10 {
+					if move.start.x-2 == move.end.x && !boardPos.RookA8Moved {
+						boardPos.movePiece(Move{start:Point{1,8}, end:Point{4,8}})
+						boardPos.RookA8Moved = true
+						boardPos.blackKingMoved = true
+					}
+					if move.start.x+2 == move.end.x && !boardPos.RookH8Moved {
+						boardPos.movePiece(Move{start:Point{8,8}, end:Point{6,8}})
+						boardPos.RookH8Moved = true
+						boardPos.blackKingMoved = true
+					}
+				}
+				// pawn promotion
 				if piece.getValue() == 1 && move.end.y == 1 {
 					boardPos.removePiece(move.start, boardPos.nextMove)
 					boardPos.BlackPieces = append(boardPos.BlackPieces, &Queen{move.end, 9, false})
@@ -74,7 +111,7 @@ func (boardPos *BoardPosition) movePiece(move Move) {
 	}
 }
 
-func (boardPos *BoardPosition) init(slice []int, nextMove bool) {
+func (boardPos *BoardPosition) init(slice []int, nextMove bool, posInfo [6]bool) {
 /**
 	// Load model
 	module, _ := torch.LoadJITModule("EvalNN.pt")
@@ -87,7 +124,14 @@ func (boardPos *BoardPosition) init(slice []int, nextMove bool) {
 
 	fmt.Println("Dadada : ", res)
 **/
+	fmt.Println(posInfo)
 	boardPos.nextMove = nextMove
+	boardPos.whiteKingMoved = posInfo[0]
+	boardPos.blackKingMoved = posInfo[1]
+	boardPos.RookA1Moved = posInfo[2]
+	boardPos.RookH1Moved = posInfo[3]
+	boardPos.RookA8Moved = posInfo[4]
+	boardPos.RookH8Moved = posInfo[5]
 	for _, element := range slice {
 		pieceInt := (element-1) / 64
 		positionInt := element % 64

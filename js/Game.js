@@ -24,7 +24,13 @@ class Game {
                 url: 'receive',
                 type: 'post',
                 dataType: 'html',
-                data : {next_move: false.toString(), board_position: this.board.position.dataFormat().toString()},
+                data : {next_move: false.toString(), board_position: this.board.position.dataFormat().toString()
+                    , whiteKingMoved: this.board.position.whiteKingMoved.toString()
+                    , blackKingMoved: this.board.position.blackKingMoved.toString()
+                    , rookA1Moved: this.board.position.RookA1Moved.toString()
+                    , rookH1Moved: this.board.position.RookH1Moved.toString()
+                    , rookA8Moved: this.board.position.RookA8Moved.toString()
+                    , rookH8Moved: this.board.position.RookH8Moved.toString()},
                 success : this.board.PlayAiMove
             });
         }

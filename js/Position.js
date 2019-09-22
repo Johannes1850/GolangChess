@@ -114,6 +114,33 @@ class Position {
     PlayMoveAlways(move) {
         let piece = this.PieceAt(move.start);
         this.RemovePiece(this.PieceAt(move.end));
+        // castling
+        if (piece instanceof King) {
+            if (piece.color === pieceColor.WHITE && !this.whiteKingMoved) {
+                if (move.start.x-2 === move.end.x && !this.RookA1Moved) {
+                    this.PieceAt({x:0,y:7}).updatePosition({x:3,y:7})
+                    this.RookA1Moved = true;
+                    this.whiteKingMoved = true;
+                }
+                if (move.start.x+2 === move.end.x && !this.RookH1Moved) {
+                    this.PieceAt({x:7,y:7}).updatePosition({x:5,y:7})
+                    this.RookH1Moved = true;
+                    this.whiteKingMoved = true;
+                }
+            }
+            if (piece.color === pieceColor.BLACK && !this.blackKingMoved) {
+                if (move.start.x-2 === move.end.x && !this.RookA8Moved) {
+                    this.PieceAt({x:0,y:0}).updatePosition({x:3,y:0})
+                    this.RookA8Moved = true;
+                    this.blackKingMoved = true;
+                }
+                if (move.start.x+2 === move.end.x && !this.RookH8Moved) {
+                    this.PieceAt({x:7,y:0}).updatePosition({x:5,y:0})
+                    this.RookH8Moved = true;
+                    this.blackKingMoved = true;
+                }
+            }
+        }
         // pawn promotion
         if (piece instanceof Pawn && (move.end.y == 7 || move.end.y == 0)) {
             this.RemovePiece(this.PieceAt(move.start));
@@ -122,10 +149,8 @@ class Position {
     }
 
     PlayMove(move) {
-        // console.log(move.start.x+" "+move.start.y);
         let piece = this.PieceAt(move.start);
         if (piece.isValidMove === "undefined") {return false;}
-        // console.log(move.start.x+" "+move.start.y);
         if (piece.isValidMove(move.start, move.end, this)) {
             if (this.exposeKing(move)) {return false}
             if (this.PieceAtBool(move.end)) {
@@ -136,6 +161,31 @@ class Position {
                 this.RemovePiece(this.PieceAt(move.start));
                 this.addQueen(move.end);
             }
+
+            // castling
+            if (piece instanceof King) {
+                if (piece.color === pieceColor.WHITE && !this.whiteKingMoved) {
+                    if (move.start.x-2 === move.end.x && !this.RookA1Moved) {
+                        this.PieceAt({x:0,y:7}).updatePosition({x:3,y:7})
+                        this.RookA1Moved = true;
+                    }
+                    if (move.start.x+2 === move.end.x && !this.RookH1Moved) {
+                        this.PieceAt({x:7,y:7}).updatePosition({x:5,y:7})
+                        this.RookH1Moved = true;
+                    }
+                }
+                if (piece.color === pieceColor.BLACK && !this.blackKingMoved) {
+                    if (move.start.x-2 === move.end.x && !this.RookA8Moved) {
+                        this.PieceAt({x:0,y:0}).updatePosition({x:3,y:0})
+                        this.RookA8Moved = true;
+                    }
+                    if (move.start.x+2 === move.end.x && !this.RookH8Moved) {
+                        this.PieceAt({x:7,y:0}).updatePosition({x:5,y:0})
+                        this.RookH8Moved = true;
+                    }
+                }
+            }
+
             if (piece instanceof King) {
                 if (piece.color === pieceColor.WHITE && !this.whiteKingMoved) {
                     this.whiteKingMoved = true;
