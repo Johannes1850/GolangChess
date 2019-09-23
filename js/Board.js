@@ -48,6 +48,7 @@ class Board {
                 this.pieceSelected = false;
                 this.selectedPiece.deSelect();
                 this.aiMove = true;
+                this.nextMove = false;
                 this.pieceSelected = false;
                 this.Draw();
                 this.Update();

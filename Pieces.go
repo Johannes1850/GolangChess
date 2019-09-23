@@ -165,13 +165,13 @@ func (piece King) validMove(boardPos BoardPosition, move Move) bool {
 	if pieceAtColor(boardPos, move.end, piece.color) {return false}
 	if move.start.x - move.end.x == 2 || move.end.x - move.start.x == 2 {
 		if piece.color == true {
-			if !boardPos.whiteKingMoved {
+			if !boardPos.whiteKingMoved && piece.position.x == 5 && piece.position.y == 1 {
 				if move.start.x - 2 == move.end.x && freeWay(boardPos, Move{start:Point{x:5,y:1}, end:Point{3,1}}) {if !boardPos.RookA1Moved && freeWay(boardPos, Move{start:Point{x:1,y:1}, end:Point{4,1}}) {return true}}
 				if move.start.x + 2 == move.end.x && freeWay(boardPos, Move{start:Point{x:5,y:1}, end:Point{7,1}}) {if !boardPos.RookH1Moved && freeWay(boardPos, Move{start:Point{x:8,y:1}, end:Point{6,1}}) {return true}}
 			}
 		}
 		if piece.color == false {
-			if !boardPos.blackKingMoved {
+			if !boardPos.blackKingMoved && piece.position.x == 5 && piece.position.y == 8 {
 				if move.start.x - 2 == move.end.x && freeWay(boardPos, Move{start:Point{x:5,y:8}, end:Point{3,8}}) {if !boardPos.RookA8Moved && freeWay(boardPos, Move{start:Point{x:1,y:8}, end:Point{4,8}}) {return true}}
 				if move.start.x + 2 == move.end.x && freeWay(boardPos, Move{start:Point{x:5,y:8}, end:Point{7,8}}) {if !boardPos.RookH8Moved && freeWay(boardPos, Move{start:Point{x:8,y:8}, end:Point{6,8}}) {return true}}
 			}

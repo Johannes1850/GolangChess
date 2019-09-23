@@ -30,6 +30,7 @@ type AiPlayer struct {
 	bestMove MoveAndEval
 	moveList []MoveAndEval
 	moveSequence []MoveListAndEval
+	moveSequence2 []MoveListAndEval
 	bestDeepSearch MoveAndEval
 	count int
 	firstMove bool
@@ -41,7 +42,7 @@ func (aiPlayer *AiPlayer) init(slice []int, nextMove bool, posInfo [6]bool) {
 	aiPlayer.count = 0
 	aiPlayer.firstMove = true
 	aiPlayer.moveSequence = []MoveListAndEval{}
-	aiPlayer.TreeSearch(&aiPlayer.boardPos, 1, -10000, 10000, aiPlayer.boardPos.nextMove, MoveAndDepth{maxDepth:7}, []Move{})
+	aiPlayer.TreeSearch(&aiPlayer.boardPos, 1, -10000, 10000, aiPlayer.boardPos.nextMove, MoveAndDepth{maxDepth:5}, []Move{})
 	aiPlayer.StartDeepSearch()
 	fmt.Println("Durchsuchte Positionen : ", aiPlayer.count)
 }
@@ -56,7 +57,7 @@ func (aiPlayer *AiPlayer) DeepSearch(position *BoardPosition, depth byte, alpha 
 	currentPos := *position
 	var newPos BoardPosition
 	maxDepth := prevMove.maxDepth
-	if byte(len(moveList.moveList)-3) >= depth {
+	if byte(len(moveList.moveList)-2) >= depth {
 		nextMove := moveList.moveList[depth-1]
 		newPos = clone(currentPos)
 		newPos.movePiece(nextMove)
@@ -119,7 +120,7 @@ func (aiPlayer *AiPlayer) TreeSearch(position *BoardPosition, depth byte, alpha 
 			if beta <= alpha {break}
 		}
 		if depth == 2 {
-			if maxEval.eval <= aiPlayer.bestMove.eval || aiPlayer.firstMove {
+			if maxEval.eval <= aiPlayer.bestMove.eval+0.05 || aiPlayer.firstMove {
 				aiPlayer.moveSequence = append(aiPlayer.moveSequence, maxEval)
 				aiPlayer.firstMove = false
 				aiPlayer.bestMove = MoveAndEval{eval: maxEval.eval, move:prevMove.move}
@@ -147,7 +148,7 @@ func (aiPlayer *AiPlayer) TreeSearch(position *BoardPosition, depth byte, alpha 
 			if beta <= alpha {break}
 		}
 		if depth == 2 {
-			if minEval.eval >= aiPlayer.bestMove.eval || aiPlayer.firstMove {
+			if minEval.eval >= aiPlayer.bestMove.eval-0.05 || aiPlayer.firstMove {
 				aiPlayer.moveSequence = append(aiPlayer.moveSequence, minEval)
 				aiPlayer.firstMove = false
 				aiPlayer.bestMove = MoveAndEval{eval: minEval.eval, move:prevMove.move}

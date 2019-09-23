@@ -5,7 +5,7 @@ class Game {
         this.board = new Board(this.size*2);
         ctx.drawImage(img, 0, 0, this.size*2, this.size*2);
         this.board.Draw();
-        this.aiMove = false;
+        this.nextMove = true
     }
 
     Draw() {
