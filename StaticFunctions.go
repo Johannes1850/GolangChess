@@ -22,41 +22,41 @@ func eval(boardPos BoardPosition) float32{
 	for _, piece := range boardPos.WhitePieces {
 		// pawn value at position
 		piecePos := piece.getPosition()
-		if piece.getValue() == 1 {whitePosCount += pawnPlacement[8-piecePos.y][piecePos.x-1]}
+		if piece.getValue() == 1 {whitePosCount += pawnPlacement[piecePos.x - 1 + (8-(piecePos.y))*8]}
 		if piece.getValue() == 3 {
 			switch piece.(type) {
 			case *Bishop:
-				whitePosCount += bishopPlacement[8-piecePos.y][piecePos.x-1]
+				whitePosCount += bishopPlacement[piecePos.x - 1 + (8-(piecePos.y))*8]
 			case *Knight:
-				whitePosCount += knightPlacement[8-piecePos.y][piecePos.x-1]
+				whitePosCount += knightPlacement[piecePos.x - 1 + (8-(piecePos.y))*8]
 			}
 		}
-		if piece.getValue() == 5 {whitePosCount += rookPlacement[8-piecePos.y][piecePos.x-1]}
-		if piece.getValue() == 9 {whitePosCount += queenPlacement[8-piecePos.y][piecePos.x-1]}
-		if piece.getValue() == 10 {whitePosCount += kingPlacement[8-piecePos.y][piecePos.x-1]}
+		if piece.getValue() == 5 {whitePosCount += rookPlacement[piecePos.x - 1 + (8-(piecePos.y))*8]}
+		if piece.getValue() == 9 {whitePosCount += queenPlacement[piecePos.x - 1 + (8-(piecePos.y))*8]}
+		if piece.getValue() == 10 {whitePosCount += kingPlacement[piecePos.x - 1 + (8-(piecePos.y))*8]}
 
 		whiteCount += float32(piece.getValue())
 	}
 	for _, piece := range boardPos.BlackPieces {
 		// pawn value at position
 		piecePos := piece.getPosition()
-		if piece.getValue() == 1 {blackPosCount += pawnPlacement[piecePos.y-1][piecePos.x-1]}
+		if piece.getValue() == 1 {blackPosCount += pawnPlacement[piecePos.x - 1 + (piecePos.y-1)*8]}
 		if piece.getValue() == 3 {
 			switch piece.(type) {
 			case *Bishop:
-				blackPosCount += bishopPlacement[piecePos.y-1][piecePos.x-1]
+				blackPosCount += bishopPlacement[piecePos.x - 1 + (piecePos.y-1)*8]
 			case *Knight:
-				blackPosCount += knightPlacement[piecePos.y-1][piecePos.x-1]
+				blackPosCount += knightPlacement[piecePos.x - 1 + (piecePos.y-1)*8]
 			}
 		}
-		if piece.getValue() == 5 {blackPosCount += rookPlacement[piecePos.y-1][piecePos.x-1]}
-		if piece.getValue() == 9 {blackPosCount += queenPlacement[piecePos.y-1][piecePos.x-1]}
-		if piece.getValue() == 10 {blackPosCount += kingPlacement[piecePos.y-1][piecePos.x-1]}
+		if piece.getValue() == 5 {blackPosCount += rookPlacement[piecePos.x - 1 + (piecePos.y-1)*8]}
+		if piece.getValue() == 9 {blackPosCount += queenPlacement[piecePos.x - 1 + (piecePos.y-1)*8]}
+		if piece.getValue() == 10 {blackPosCount += kingPlacement[piecePos.x - 1 + (piecePos.y-1)*8]}
 		blackCount += float32(piece.getValue())
 	}
 	whitePosCount += 200
 	blackPosCount += 200
-	posQuotient := float32((whitePosCount / blackPosCount)-1)*0.05
+	posQuotient := float32((whitePosCount / blackPosCount)-1)*0.03
 	posEval := posQuotient + (whiteCount / blackCount)-1
 	return posEval
 }
