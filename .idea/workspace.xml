@@ -4,10 +4,9 @@
     <list default="true" id="06edab0d-039a-4751-8537-88d8ff814017" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ai.go" beforeDir="false" afterPath="$PROJECT_DIR$/Ai.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pieces.go" beforeDir="false" afterPath="$PROJECT_DIR$/Pieces.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StaticFunctions.go" beforeDir="false" afterPath="$PROJECT_DIR$/StaticFunctions.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go_build_ThirdChess" beforeDir="false" afterPath="$PROJECT_DIR$/go_build_ThirdChess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/Board.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Board.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Position.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Position.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

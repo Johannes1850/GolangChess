@@ -167,6 +167,12 @@ func clone(boardPos BoardPosition) BoardPosition {
 	newPos.prevMove.start.y = boardPos.prevMove.start.y
 	newPos.prevMove.end.x = boardPos.prevMove.end.x
 	newPos.prevMove.end.y = boardPos.prevMove.end.y
+	newPos.whiteKingMoved = boardPos.whiteKingMoved
+	newPos.blackKingMoved = boardPos.blackKingMoved
+	newPos.RookA1Moved = boardPos.RookA1Moved
+	newPos.RookA8Moved = boardPos.RookA8Moved
+	newPos.RookH1Moved = boardPos.RookH1Moved
+	newPos.RookH8Moved = boardPos.RookH8Moved
 	return newPos
 }
 

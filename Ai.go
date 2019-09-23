@@ -120,7 +120,7 @@ func (aiPlayer *AiPlayer) TreeSearch(position *BoardPosition, depth byte, alpha 
 			if beta <= alpha {break}
 		}
 		if depth == 2 {
-			if maxEval.eval <= aiPlayer.bestMove.eval+0.05 || aiPlayer.firstMove {
+			if maxEval.eval <= aiPlayer.bestMove.eval+0.08 || aiPlayer.firstMove {
 				aiPlayer.moveSequence = append(aiPlayer.moveSequence, maxEval)
 				aiPlayer.firstMove = false
 				aiPlayer.bestMove = MoveAndEval{eval: maxEval.eval, move:prevMove.move}
