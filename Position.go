@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Point struct {
 	x byte
 	y byte
@@ -124,7 +122,6 @@ func (boardPos *BoardPosition) init(slice []int, nextMove bool, posInfo [6]bool)
 
 	fmt.Println("Dadada : ", res)
 **/
-	fmt.Println(posInfo)
 	boardPos.nextMove = nextMove
 	boardPos.whiteKingMoved = posInfo[0]
 	boardPos.blackKingMoved = posInfo[1]
