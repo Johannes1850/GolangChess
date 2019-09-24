@@ -4,7 +4,6 @@
     <list default="true" id="06edab0d-039a-4751-8537-88d8ff814017" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ai.go" beforeDir="false" afterPath="$PROJECT_DIR$/Ai.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Position.go" beforeDir="false" afterPath="$PROJECT_DIR$/Position.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go_build_ThirdChess" beforeDir="false" afterPath="$PROJECT_DIR$/go_build_ThirdChess" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
