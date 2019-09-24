@@ -50,26 +50,26 @@ func (aiPlayer *AiPlayer) init(slice []int, nextMove bool, posInfo [6]bool) {
 
 func (aiPlayer *AiPlayer) StartDeepSearch() {
 	for _, moveSequence := range aiPlayer.moveSequence {
-		aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, -10000, 10000, aiPlayer.boardPos.nextMove, MoveAndDepth{maxDepth:10}, moveSequence)
+		aiPlayer.DeepSearch(&aiPlayer.boardPos, 2, 5, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence)
 	}
 	for _, moveSequence2 := range aiPlayer.moveSequence2 {
-		aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, -10000, 10000, aiPlayer.boardPos.nextMove, MoveAndDepth{maxDepth:10}, moveSequence2)
+		aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, 4, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence2)
 	}
 }
 
-func (aiPlayer *AiPlayer) DeepSearch(position *BoardPosition, depth byte, alpha float32, beta float32, color bool, prevMove MoveAndDepth, moveList MoveListAndEval) {
+func (aiPlayer *AiPlayer) DeepSearch(position *BoardPosition, offset byte, depth byte, alpha float32, beta float32, color bool, moveList MoveListAndEval) {
 	var newPos BoardPosition
 	fmt.Println(moveList)
 	var currentMoveList []Move
 	newPos = clone(*position)
-	for i := 0; i < len(moveList.moveList)-2; i++ {
+	for i := 0; i < len(moveList.moveList)-int(offset); i++ {
 		currentMoveList = append(currentMoveList, moveList.moveList[i])
 		nextMove := moveList.moveList[i]
 		newPos.movePiece(nextMove)
 		newPos.nextMove = !newPos.nextMove
 	}
 	allMoves := allValidMoves(newPos, 1)
-	aiPlayer.SortMoveList(newPos, &allMoves, 5, color, false, currentMoveList)
+	aiPlayer.SortMoveList(newPos, &allMoves, depth, color, false, currentMoveList)
 	if allMoves[0].eval <= aiPlayer.bestMove.eval {
 		aiPlayer.bestMove.move = moveList.moveList[0]
 		aiPlayer.bestMove.eval = allMoves[0].eval
