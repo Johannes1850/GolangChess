@@ -163,6 +163,7 @@ func (piece Pawn) clone() Piece {
 func (piece King) validMove(boardPos BoardPosition, move Move) bool {
 	if move.end.x > 8 || move.end.x < 1 || move.end.y > 8 || move.end.y < 1 {return false}
 	if pieceAtColor(boardPos, move.end, piece.color) {return false}
+	// castling
 	if move.start.x - move.end.x == 2 || move.end.x - move.start.x == 2 {
 		if piece.color == true {
 			if !boardPos.whiteKingMoved && piece.position.x == 5 && piece.position.y == 1 {
@@ -180,7 +181,8 @@ func (piece King) validMove(boardPos BoardPosition, move Move) bool {
 	var diffX = int(move.start.x) - int(move.end.x)
 	var diffY = int(move.start.y) - int(move.end.y)
 	if math.Abs(float64(diffX)) <= 1 && math.Abs(float64(diffY)) <= 1 {
-		if !KingBlockingKing(boardPos, move.end) {return true}
+		// if !KingBlockingKing(boardPos, move.end) {return true}
+		return true
 	}
 	return false
 }

@@ -53,8 +53,23 @@ func (aiPlayer *AiPlayer) StartDeepSearch() {
 		aiPlayer.DeepSearch(&aiPlayer.boardPos, 2, 5, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence)
 	}
 	for _, moveSequence2 := range aiPlayer.moveSequence2 {
-		aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, 4, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence2)
+		if moveSequence2.eval < aiPlayer.bestMove.eval + 0.12 && len(moveSequence2.moveList) == 6{
+			aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, 4, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence2)
+		}
 	}
+	for _, moveSequence2 := range aiPlayer.moveSequence2 {
+		if moveSequence2.eval < aiPlayer.bestMove.eval + 0.07 && len(moveSequence2.moveList) == 8{
+			aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, 4, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence2)
+		}
+	}
+	/**
+	for _, moveSequence2 := range aiPlayer.moveSequence2 {
+		fmt.Println(moveSequence2)
+		if moveSequence2.eval < aiPlayer.bestMove.eval + 0.06 && len(moveSequence2.moveList) == 10{
+			aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, 4, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence2)
+		}
+	}
+	**/
 }
 
 func (aiPlayer *AiPlayer) DeepSearch(position *BoardPosition, offset byte, depth byte, alpha float32, beta float32, color bool, moveList MoveListAndEval) {
