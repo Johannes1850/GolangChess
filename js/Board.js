@@ -45,6 +45,7 @@ class Board {
                 this.selectedPiece.deSelect();
                 return;
             } else {
+                document.getElementById("bar").style.width="0%";
                 this.pieceSelected = false;
                 this.selectedPiece.deSelect();
                 this.aiMove = true;

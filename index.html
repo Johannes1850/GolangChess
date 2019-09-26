@@ -10,11 +10,16 @@
     <script language="javascript" type="text/javascript" src="js/Board.js"></script>
     <script language="javascript" type="text/javascript" src="js/Position.js"></script>
     <script language="javascript" type="text/javascript" src="js/Pieces.js"></script>
+    <script language="javascript" type="text/javascript" src="js/Ajax.js"></script>
+    <link rel="stylesheet" href="/js/styles.css">
 </head>
 <body onload="MainGame.Draw()">
 <div style="display: block; margin: auto; width: 1000px;">
     <h1 style="font-family: 'Livvic', sans-serif">ChessOne - a simple chess engine</h1>
     <canvas style="" id="myCanvas"></canvas>
+    <div id="progress">
+        <div id ="bar"></div>
+    </div>
 </div>
 <script>
     const canvas = document.getElementById("myCanvas");
@@ -24,6 +29,7 @@
     canvas.style.height = "700px";
     const ctx = canvas.getContext("2d");
     let img = new Image();
+    setInterval(receiveCalcProgression, 70);
     img.src = "images/chessboard.png";
     canvas.addEventListener('click', mouseClick, false);
     const MainGame = new Game(canvas.width/2);

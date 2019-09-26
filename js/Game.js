@@ -8,6 +8,17 @@ class Game {
         this.nextMove = true
     }
 
+    incrLoadingBar(data) {
+        console.log(data);
+        let bar = document.getElementById("bar");
+        let progress = document.getElementById("progress");
+        while (document.getElementById("bar").clientWidth < document.getElementById("progress").clientWidth*parseInt(data)/100) {
+            let width = bar.clientWidth;
+            let newWidth = ((width+1)/progress.offsetWidth)*100;
+            bar.style.width=newWidth.toString()+"%";
+        }
+    }
+
     Draw() {
         this.board.Draw();
     }

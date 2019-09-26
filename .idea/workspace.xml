@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06edab0d-039a-4751-8537-88d8ff814017" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/DeepSearchProgression.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/Ajax.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ai.go" beforeDir="false" afterPath="$PROJECT_DIR$/Ai.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pieces.go" beforeDir="false" afterPath="$PROJECT_DIR$/Pieces.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go_build_ThirdChess" beforeDir="false" afterPath="$PROJECT_DIR$/go_build_ThirdChess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.go" beforeDir="false" afterPath="$PROJECT_DIR$/Main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Board.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Board.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Game.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="JavaScript File" />
         <option value="Go File" />
       </list>
     </option>
@@ -41,11 +47,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js" />
       <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/libtorch/include/torch" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/libtorch/include/torch/csrc/api/include" />
-      <recent name="$PROJECT_DIR$/js" />
     </key>
   </component>
   <component name="RunDashboard">

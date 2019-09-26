@@ -35,7 +35,7 @@ func receiveAjax(w http.ResponseWriter, r *http.Request) {
 		cleaned := strings.Replace(boardPosition, ",", " ", -1)
 		strSlice := strings.Fields(cleaned)
 		// create new slice with boolean's
-		intSlice := []int {}
+		var intSlice []int
 		for i := 0; i < len(strSlice); i++ {
 			if strSlice[i] == "1" {
 				intSlice = append(intSlice, i)
@@ -44,6 +44,10 @@ func receiveAjax(w http.ResponseWriter, r *http.Request) {
 		aiMove := startCalc(intSlice, nextMove, [6]bool{whiteKingMoved, blackKingMoved, rookA1Moved, rookH1Moved, rookA8Moved, rookH8Moved})
 		w.Write([]byte(aiMove))
 	}
+}
+
+func sendAjax (w http.ResponseWriter, r *http.Request) {
+	_, _ = w.Write([]byte(getCalcProgression()))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -61,5 +65,6 @@ func main() {
 		Handler(http.StripPrefix("/images/", http.FileServer(http.Dir("."+"/images/"))))
 	r.HandleFunc("/", handler)
 	r.HandleFunc("/receive", receiveAjax)
+	r.HandleFunc("/calcProgress", sendAjax)
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
