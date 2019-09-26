@@ -6,15 +6,30 @@ h1 {
     color: white;
 }
 
-#progress {
-    width: 900px;
-    background-color: lightgray;
-    height: 30px;
-    margin-top: 40px;
+#progress{
+     width: 900px;
+     background-color: lightgray;
+     height: 30px;
+     margin-top: 40px;
 }
 
-#bar {
-    width: 0%;
+#deepEval{
+    width: 700px;
+    background-color: lightgray;
+    height: 30px;
+}
+
+#bar{
+    width: 0;
     background-color: green;
     height: 30px;
+}
+
+#evalBar {
+    line-height: 30px;
+    width: 50%;
+    background-color: green;
+    color: white;
+    height: 30px;
+    text-align: center;
 }

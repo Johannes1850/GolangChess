@@ -43,8 +43,9 @@ func (aiPlayer *AiPlayer) init(slice []int, nextMove bool, posInfo [6]bool) {
 	aiPlayer.count = 0
 	aiPlayer.firstMove = true
 	aiPlayer.moveSequence = []MoveListAndEval{}
-	aiPlayer.TreeSearch(&aiPlayer.boardPos, 1, -10000, 10000, aiPlayer.boardPos.nextMove, MoveAndDepth{maxDepth:7}, []Move{})
-	//aiPlayer.StartDeepSearch()
+	aiPlayer.TreeSearch(&aiPlayer.boardPos, 1, -10000, 10000, aiPlayer.boardPos.nextMove, MoveAndDepth{maxDepth:5}, []Move{})
+	aiPlayer.StartDeepSearch()
+	deepEval = aiPlayer.bestMove.eval
 	fmt.Println("Durchsuchte Positionen : ", aiPlayer.count)
 }
 
@@ -58,13 +59,13 @@ func (aiPlayer *AiPlayer) StartDeepSearch() {
 			aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, 4, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence2)
 		}
 	}
+	/**
 	fmt.Println("hier")
 	for _, moveSequence2 := range aiPlayer.moveSequence2 {
 		if moveSequence2.eval < aiPlayer.bestMove.eval + 0.07 && len(moveSequence2.moveList) == 8{
 			aiPlayer.DeepSearch(&aiPlayer.boardPos, 1, 4, -10000, 10000, aiPlayer.boardPos.nextMove, moveSequence2)
 		}
 	}
-	/**
 	fmt.Println("hier")
 	for _, moveSequence2 := range aiPlayer.moveSequence2 {
 		if moveSequence2.eval < aiPlayer.bestMove.eval + 0.06 && len(moveSequence2.moveList) == 10{

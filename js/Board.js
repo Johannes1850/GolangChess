@@ -16,6 +16,13 @@ class Board {
                 , 10), parseInt(formMove[1], 10))
             , end: new Point(parseInt(formMove[2], 10),parseInt(formMove[3], 10))});
         MainGame.board.blockHumanMove = false;
+        $.ajax({
+            url: 'deepEval',
+            type: 'post',
+            success: function (data) {
+                adjustEvalBar(data);
+            }
+        });
         MainGame.board.Draw();
     }
 
